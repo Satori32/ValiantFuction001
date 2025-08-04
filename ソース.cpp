@@ -24,26 +24,26 @@ void Construct(Valiant<T>& V, const T& In) {//kick it.
 	return;
 }
 //are you need sum function. for last result.
-struct Function {
+struct Functions {
 	Any Conjecter;//for conjecter function. mix the inner.
 	//std::vector<Any> Lines;
-	std::vector<Function> Lines;
+	std::vector<Functions> Lines;
 	ValiantTuple Args;
 	Valiant Ret;
 };
 
-auto Conjection(Function& In) {
-	return F.Conjecter.Value(In);//is valid??
+auto Conjection(Functions& In) {
+	return In.Conjecter.Value(In);//is valid??
 }
 
 template<class L>
-void SetConjecter(Function& In, const L& F){
+void SetConjecter(Functions& In, const L& F){
 	In.Conjecter.Value = F;
 	in.Conjecter.Type = decllambda(F);
 	return;
 }
 
-auto Sum(Function& In) {
+auto Sum(Functions& In) {
 	auto A;//forces late binding.
 	auto B;
 	for (auto& o : In.Lines) {
@@ -57,7 +57,7 @@ auto Sum(Function& In) {
 	return B + A;//is valid??
 }
 
-void Call(const Function& In) {
+void Call(const Functions& In) {
 
 	for (auto& L : In.Lines) {
 		L.Ret=L.Conjecter.Values(L.Args);//call holy ceraf.
@@ -68,7 +68,7 @@ void Call(const Function& In) {
 
 //for UCS
 template<class... T>
-void Add(Function& F, auto L, const T&... Arg) const{//L is for Lambda.
+void Add(Functions& F, auto L, const T&... Arg) const{//L is for Lambda.
 	Any A{ L,decllamda(L) };//anotetion.
 	ValiantTuple VT = MakeValiantTuple(Arg...);//made by other code. made by me.
 	Valiant V{ auto(0),decltype(L) };
@@ -77,7 +77,7 @@ void Add(Function& F, auto L, const T&... Arg) const{//L is for Lambda.
 }
 //for UCS
 template<class... T>
-void Add(Function& F, auto L,const std::vector<Function>& In, const T&... Arg) const {//L is for Lambda.
+void Add(Functions& F, auto L,const std::vector<Functions>& In, const T&... Arg) const {//L is for Lambda.
 	Any A{ L,decllamda(L) };//anotetion.
 	ValiantTuple VT = MakeValiantTuple(Arg...);//made by other code. made by me.
 	Valiant V{ auto(0),decltype(L) };
@@ -85,8 +85,8 @@ void Add(Function& F, auto L,const std::vector<Function>& In, const T&... Arg) c
 	F.Lines.push_back({ L,In,VT,V });
 }
 
-Function MakeFunction(Any Con, std::vector<Function> Fs, const ValiantTuple& Arges, const Valiant& V) {
-	Function F{ Con,Fs,Arges,V };
+Functions MakeFunctions(Any Con, std::vector<Functions> Fs, const ValiantTuple& Arges, const Valiant& V) {
+	Functions F{ Con,Fs,Arges,V };
 
 	return F;
 }
@@ -97,11 +97,11 @@ int main() {
 	//Any A;
 	//A.Construct([](auto i) {return i * 2; });
 
-	Function F;
+	Functions F;
 
 	F.Add([](auto i) {return i * 2; }, 16);
 	F.Add([](auto A, auto B) {return A * B; },2,4);
-	F.SetConjector([](Function& In) {F.Call(); });//call Holy Ceraf.
+	F.SetConjector([](Functions& In) {F.Call(); });//call Holy Ceraf.
 
 	F.Conjection();//prejuer.
 	auto X = F.Sum();
