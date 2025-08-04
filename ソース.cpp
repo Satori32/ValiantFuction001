@@ -100,13 +100,13 @@ int main() {
 	Function F;
 
 	F.Add([](auto i) {return i * 2; }, 16);
-	F.Add([](auto A, auto B) {return A * B; });
+	F.Add([](auto A, auto B) {return A * B; },2,4);
 	F.SetConjector([](Function& In) {F.Call(); });//call Holy Ceraf.
 
 	F.Conjection();//prejuer.
 	auto X = F.Sum();
 
-	std::cout << X << std::endl;
+	std::cout << X << std::endl;//result.
 
 	return 0;
 }
